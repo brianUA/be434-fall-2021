@@ -36,7 +36,7 @@ def main():
     for fh in args.files:
         counter = 1
         for line in fh:
-            if args.number == False:
+            if args.number is False:
                 print(line.rstrip('\n'))
             else:
                 print("     "+ str(counter)+ "\t" + line.rstrip('\n'))
