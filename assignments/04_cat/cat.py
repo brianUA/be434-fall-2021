@@ -39,10 +39,8 @@ def main():
             if args.number is False:
                 print(line.rstrip('\n'))
             else:
-                print("     "+ str(counter)+ "\t" + line.rstrip('\n'))
+                print("     " + str(counter) + "\t" + line.rstrip('\n'))
                 counter += 1
-
-
 
 
 # --------------------------------------------------
