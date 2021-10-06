@@ -7,6 +7,7 @@ Purpose: Translate dna into codons
 
 import argparse
 from pprint import pprint
+import sys
 
 # --------------------------------------------------
 def get_args():
@@ -24,6 +25,7 @@ def get_args():
                         '--codons',
                         help='Codons to look for',
                         metavar='FILE',
+                        default=[sys.stdin],
                         type=argparse.FileType('rt'))
     parser.add_argument('-o',
                         '--outfile',
