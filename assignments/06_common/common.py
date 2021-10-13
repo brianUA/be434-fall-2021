@@ -16,7 +16,7 @@ def get_args():
         description='Rock the Casbah',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('file2',
+    parser.add_argument('file1',
                         help='files to input to find similarities',
                         metavar='FILE',
                         type=argparse.FileType('rt'))
@@ -42,17 +42,17 @@ def main():
     
 args = get_args()
 
-file1 = set()
-file2 = set()
+fileset1 = set()
+fileset2 = set()
 for line in args.file1:
     for word in line.split():     
-        file1.add(word)
+        fileset1.add(word)
 #print(file1)
 for line in args.file2:
     for word in line.split():     
-        file2.add(word)
+        fileset2.add(word)
 #print(file2)
-output = file1.intersection(file2)
+output = fileset1.intersection(fileset2)
 
 outstr = ""
 for entry in output:
