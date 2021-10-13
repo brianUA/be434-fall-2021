@@ -16,19 +16,22 @@ def get_args():
         description='Rock the Casbah',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('files',
+    parser.add_argument('file2',
                         help='files to input to find similarities',
                         metavar='FILE',
-                        nargs='+',
-                        default=[sys.stdin],
+                        type=argparse.FileType('rt'))
+
+    parser.add_argument('file2',
+                        help='files to input to find similarities',
+                        metavar='FILE',
                         type=argparse.FileType('rt'))
 
     parser.add_argument('-o',
                         '--outfile',
                         help='specificy output file',
                         metavar='str',
-                        type=str,
-                        default="out.txt")
+                        type=argparse.FileType('wt'),
+                        default=sys.stdout)
 
     return parser.parse_args()
 
@@ -41,24 +44,20 @@ args = get_args()
 
 file1 = set()
 file2 = set()
-fh1 = args.files[0]
-for line in fh1:
+for line in args.file1:
     for word in line.split():     
         file1.add(word)
 #print(file1)
-fh2 = args.files[1]
-for line in fh2:
+for line in args.file2:
     for word in line.split():     
         file2.add(word)
 #print(file2)
 output = file1.intersection(file2)
 
-out_fh = open(args.outfile, 'wt') if args.outfile else sys.stdout
+outstr = ""
 for entry in output:
-    entry = entry + "\n"
-    out_fh.write(entry)
-
-out_fh.close()
+    outstr = outstr + entry + "\n"
+print(outstr, file =args.outfile)
 
 
 
