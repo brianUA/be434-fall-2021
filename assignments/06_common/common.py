@@ -9,15 +9,16 @@ import argparse
 import sys
 
 # --------------------------------------------------
+
+
 def get_args():
     """Get command-line arguments"""
-
     parser = argparse.ArgumentParser(
         description='Rock the Casbah',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('file1',
-                        help='Input file 1',
+                        help='Input file 1 ',
                         metavar='FILE',
                         type=argparse.FileType('rt'))
 
@@ -39,28 +40,22 @@ def get_args():
 # --------------------------------------------------
 def main():
     """Make a jazz noise here"""
-    
-args = get_args()
-
-fileset1 = set()
-fileset2 = set()
-for line in args.file1:
-    for word in line.split():     
-        fileset1.add(word)
-#print(file1)
-for line in args.file2:
-    for word in line.split():     
-        fileset2.add(word)
-#print(file2)
-output = fileset1.intersection(fileset2)
-
-outstr = ""
-for entry in output:
-    outstr = outstr + entry + "\n"
-print(outstr, file =args.outfile)
-
-
-
+    args = get_args()
+    fileset1 = set()
+    fileset2 = set()
+    for line in args.file1:
+        for word in line.split():
+            fileset1.add(word)
+    for line in args.file2:
+        for word in line.split():
+            fileset2.add(word)
+    output = fileset1.intersection(fileset2)
+    outstr = ""
+    for entry in output:
+        outstr = outstr + entry + "\n"
+    print(outstr, file=args.outfile)
 # --------------------------------------------------
+
+
 if __name__ == '__main__':
     main()
