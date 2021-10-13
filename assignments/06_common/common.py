@@ -17,19 +17,19 @@ def get_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('file1',
-                        help='files to input to find similarities',
+                        help='Input file 1',
                         metavar='FILE',
                         type=argparse.FileType('rt'))
 
     parser.add_argument('file2',
-                        help='files to input to find similarities',
+                        help='Input file 2',
                         metavar='FILE',
                         type=argparse.FileType('rt'))
 
     parser.add_argument('-o',
                         '--outfile',
                         help='specificy output file',
-                        metavar='str',
+                        metavar='FILE',
                         type=argparse.FileType('wt'),
                         default=sys.stdout)
 
