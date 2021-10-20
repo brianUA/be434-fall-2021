@@ -9,6 +9,8 @@ import argparse
 import sys
 
 # --------------------------------------------------
+
+
 def get_args():
     """Get command-line arguments"""
 
@@ -59,13 +61,13 @@ def main():
                 edited = edited + "[" + codes.get(letter) + "]"
             else:
                 edited = edited + letter
-
-
         print(sequences, edited, file=args.outfile)
 
     if args.outfile is not sys.stdout:
         print("Done, see output in \"" + str(args.outfile.name) + "\"")
 
 # --------------------------------------------------
+
+
 if __name__ == '__main__':
     main()
