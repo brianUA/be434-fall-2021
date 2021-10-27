@@ -46,16 +46,33 @@ def main():
     args = get_args()
 
     fileset1 = set()
+    list1 = []
     fileset2 = set()
+    list2 = []
     for line in args.file1:
-        for word in line.split():
-            fileset1.add(word)
+        nospace = line.replace(" ", "").strip().replace(".", "").replace(",", "")
+        #print(line.rstrip(),nospace)
+        for char in range(0,len(nospace)):
+            fileset1.add(nospace[char:(char+args.kmer)])
+            list1.append(nospace[char:(char+args.kmer)])
+    #print(fileset1)
     for line in args.file2:
-        for word in line.split():
-            fileset2.add(word)
-    kmers = fileset1.intersection(fileset2)
-    for kmer in kmers:
-        print(kmer[0:args.kmer])
+        nospace = line.replace(" ", "").strip().replace(".", "").replace(",", "")
+        for char in range(0,len(nospace)):
+            fileset2.add(nospace[char:(char+args.kmer)])
+            list2.append(nospace[char:(char+args.kmer)])
+    #print(fileset2)
+    kmers_set = fileset1.intersection(fileset2)
+
+    final_kmers = set()
+    #print(list1)
+    for item in kmers_set:
+        if len(item) == args.kmer:
+            final_kmers.add(item)
+
+    for item in final_kmers:
+        print('{0:10}{1:6}{2:6}'.format(item, list1.count(item), list2.count(item)))
+
                 
 
 
