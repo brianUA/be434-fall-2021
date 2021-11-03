@@ -7,7 +7,7 @@ Purpose: Rock the Casbah
 
 import argparse
 from Bio import SeqIO
-
+import os
 # --------------------------------------------------
 def get_args():
     """Get command-line arguments"""
@@ -33,10 +33,39 @@ def get_args():
 
 # --------------------------------------------------
 def main():
-    """Make a jazz noise here"""
-
     args = get_args()
+    makedir(args)
 
+    
+def makedir(args):
+    directory = args.outdir
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    print(f"Done, see output in \"{directory}\"")
+
+def split(args):
+    print()
+
+    
+def out(args):
+    outfiles = args.file
+    outnames = []
+    for files in outfiles:
+        counter = 1
+        namelist = []
+        for char in files.name:
+            namelist.append(char)
+        del namelist[0:namelist.index("/")+1]
+        namelist2 = []
+        for entry in namelist:
+            namelist2.append(entry)
+        namelist.insert(namelist.index("."), "_" + str(counter))
+        outnames.append("".join(namelist))
+        counter += 1
+        namelist2.insert(namelist2.index("."), "_" + str(counter))
+        outnames.append("".join(namelist2))
+    print(outnames)
+    teststr = "This is a test"
 
 
 
