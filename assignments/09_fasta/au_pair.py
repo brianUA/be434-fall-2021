@@ -17,7 +17,7 @@ def get_args():
         description='SPlit interleaved/paired reads',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('file',
+    parser.add_argument('files',
                         help='Input file(s)',
                         metavar='FILE',
                         nargs='+',
@@ -26,7 +26,7 @@ def get_args():
     parser.add_argument('-o',
                         '--outdir',
                         help='specificy output directory',
-                        metavar='str',
+                        metavar=str,
                         default="split")
 
     return parser.parse_args()
@@ -35,73 +35,23 @@ def get_args():
 # --------------------------------------------------
 def main():
     args = get_args()
-    makedir(args)
 
-    outfiles = args.file
-    for files in outfiles:
-        file = files.name
-        basename = os.path.basename(file)
+    out_dir = args.outdir
+    if not os.path.isdir(out_dir):
+        os.makedirs(out_dir)
+    
+
+    for fh in args.files:
+        basename = os.path.basename(fh.name)
         root, ext = os.path.splitext(basename)
-        outname1 = os.path.join(args.outdir, root + '_1' + ext)
-        outname2 = os.path.join(args.outdir, root + '_2' + ext)
+        forward = open(os.path.join(out_dir, root + '_1' + ext), 'wt')
+        reverse = open(os.path.join(out_dir, root + '_2' + ext), 'wt')
+        parser = SeqIO.parse(fh, 'fasta')
 
+        for i, rec in enumerate(parser):
+            SeqUI.write(rec, forward if i % 2 == 0 else reverse, 'fasta')
 
-        reader = SeqIO.parse(files, 'fasta')
-
-
-        with open(outname1, 'w') as f:
-            sys.stdout = f
-            for rec in reader:
-                line =+ 1
-                if (line % 2) != 0:
-                    print(rec.description)
-                    print(rec.seq)
-
-
-        with open(outname2, 'w') as f:
-            sys.stdout = f
-            for rec in reader:
-                line =+ 1
-                if (line % 2) == 0:
-                    print(rec.description)
-                    print(rec.seq)
-
-    
-
-
-
-def makedir(args):
-    directory = args.outdir
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    print(f"Done, see output in \"{directory}\"")
-
-def split(args):
-    print()
-
-    
-def out(args):
-    #outfiles = args.file
-    #outnames = []
-    #for files in outfiles:
-    #    counter = 1
-    #    namelist = []
-    #    for char in files.name:
-    #        namelist.append(char)
-    #    del namelist[0:namelist.index("/")+1]
-    #    namelist2 = []
-    #    for entry in namelist:
-    #        namelist2.append(entry)
-    #    namelist.insert(namelist.index("."), "_" + str(counter))
-    #    outnames.append("".join(namelist))
-    #    counter += 1
-    #    namelist2.insert(namelist2.index("."), "_" + str(counter))
-    #    outnames.append("".join(namelist2))
-    #print(outnames)
-    teststr = "This is a test"
-
-
-
+    print(f'Done, see output in "{out_dir}"')
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
