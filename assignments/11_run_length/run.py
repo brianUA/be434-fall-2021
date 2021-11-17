@@ -6,7 +6,7 @@ Purpose: Create the
 """
 
 import argparse
-
+import os
 
 # --------------------------------------------------
 def get_args():
@@ -16,12 +16,14 @@ def get_args():
         description='Rock the Casbah',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('seq',
-                        metavar='str',
-                        help='A positional argument')
+    parser.add_argument('text', metavar='text', help='Input text or file')
 
+    args = parser.parse_args()
 
-    return parser.parse_args()
+    if os.path.isfile(args.text):
+        args.text = open(args.text).read().rstrip()
+
+    return args
 
 
 # --------------------------------------------------
@@ -29,26 +31,26 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    tempseq = "x"
+    tempseq = "x"    
     newseq = ""
-    outseq = ""
-    
-
-    for line in args.seq:
-        for value, base in enumerate(line):
+    line = args.text
+    for value, base in enumerate(line):
+        if value == len(line) -1 and base == line[len(line)-1]:
             if base == tempseq[0]:
-                tempseq = tempseq + base
-            elif base != tempseq[0] or (base == tempseq[0] and value == len(line)):
-                count = len(tempseq)
-                tempseq = base
-                if count > 1:
-                    newseq = newseq + str(count) + tempseq[0] 
-                elif base == line[len(line)-1]:
-                    print("base:", base, "line", line)
+                print(newseq)
+                newseq = newseq +str(count+1)
+        if base == tempseq[0]:
+            tempseq = tempseq + base
+        else:
+            count = len(tempseq)
+            tempseq = base
+            if count > 1:
+                newseq = newseq + str(count) + tempseq[0] 
+            elif base == line[len(line)-1] and count > 1:
                     newseq = newseq + base + str(count)
-                else:
-                    newseq = newseq + base
-        print(newseq)
+            else:
+                newseq = newseq + base
+    print(newseq)
 
             
 
