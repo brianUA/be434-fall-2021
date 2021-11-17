@@ -8,6 +8,7 @@ Purpose:
 import argparse
 import os
 
+
 # --------------------------------------------------
 def get_args():
     """Get command-line arguments"""
@@ -35,9 +36,9 @@ def main():
     newseq = ""
     line = args.text
     for value, base in enumerate(line):
-        if value == len(line) -1 and base == line[len(line)-1]:
+        if value == len(line) - 1 and base == line[len(line) - 1]:
             if base == tempseq[0]:
-                newseq = newseq +str(len(tempseq)+1)
+                newseq = newseq + str(len(tempseq) + 1)
         if base == tempseq[0]:
             tempseq = tempseq + base
         else:
@@ -50,7 +51,6 @@ def main():
             else:
                 newseq = newseq + base
     print(newseq)
-
 
 
 # --------------------------------------------------
