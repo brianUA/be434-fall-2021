@@ -2,7 +2,7 @@
 """
 Author : Brian Scott <brianscott@email.arizona.edu>
 Date   : 2021-11-15
-Purpose: Create the 
+Purpose:
 """
 
 import argparse
@@ -31,7 +31,7 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    tempseq = "x"    
+    tempseq = "x"
     newseq = ""
     line = args.text
     for value, base in enumerate(line):
@@ -44,15 +44,12 @@ def main():
             count = len(tempseq)
             tempseq = base
             if count > 1:
-                newseq = newseq + str(count) + tempseq[0] 
+                newseq = newseq + str(count) + tempseq[0]
             elif base == line[len(line)-1] and count > 1:
-                    newseq = newseq + base + str(count)
+                newseq = newseq + base + str(count)
             else:
                 newseq = newseq + base
     print(newseq)
-
-            
-
 
 
 
