@@ -37,8 +37,7 @@ def main():
     for value, base in enumerate(line):
         if value == len(line) -1 and base == line[len(line)-1]:
             if base == tempseq[0]:
-                print(newseq)
-                newseq = newseq +str(count+1)
+                newseq = newseq +str(len(tempseq)+1)
         if base == tempseq[0]:
             tempseq = tempseq + base
         else:
