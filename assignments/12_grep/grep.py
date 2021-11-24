@@ -55,15 +55,13 @@ def main():
 def search(pattern, files, sensitive, outfile):
 
     for fh in files:
-        if len(files) > 1:
-            print(os.path.basename(fh.name), file=outfile)
         for line in fh:
             if sensitive:
                 if re.search(pattern, line):
-                    print(line.strip(), file=outfile)
+                    print(fh.name + ":" + line.strip() if len(files) > 1 else line.strip(), file=outfile)
             else:
                 if re.search(pattern, line, re.I):
-                    print(line.strip(), file=outfile)
+                    print(fh.name + ":" + line.strip() if len(files) > 1 else line.strip(), file=outfile)
 
 # --------------------------------------------------
 if __name__ == '__main__':
