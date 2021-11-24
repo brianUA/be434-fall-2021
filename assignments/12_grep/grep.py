@@ -23,7 +23,7 @@ def get_args():
     parser.add_argument('-i',
                         '--insensitive',
                         help='Case-insensivitive search (default: false)',
-                        action='store_true')
+                        action='store_false')
 
     parser.add_argument('-o',
                         '--outfile',
