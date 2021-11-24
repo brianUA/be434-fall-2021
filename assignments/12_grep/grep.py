@@ -7,7 +7,6 @@ Purpose: Search for files
 
 import argparse
 import sys
-import os
 import re
 
 # --------------------------------------------------
@@ -17,8 +16,6 @@ def get_args():
     parser = argparse.ArgumentParser(
         description='Rock the Casbah',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
-   
 
     parser.add_argument('-i',
                         '--insensitive',
@@ -49,19 +46,22 @@ def get_args():
 
 # --------------------------------------------------
 def main():
+    """Does some magic"""
     args = get_args()
     search(args.pattern, args.files, args.insensitive, args.outfile)
 
 def search(pattern, files, sensitive, outfile):
-
+    """Searches for pattern, and prints matching lines"""
     for fh in files:
         for line in fh:
             if sensitive:
                 if re.search(pattern, line):
-                    print(fh.name + ":" + line.strip() if len(files) > 1 else line.strip(), file=outfile)
+                    print(fh.name + ":" + line.strip() if len(files) > 1
+                     else line.strip(), file=outfile)
             else:
                 if re.search(pattern, line, re.I):
-                    print(fh.name + ":" + line.strip() if len(files) > 1 else line.strip(), file=outfile)
+                    print(fh.name + ":" + line.strip() if len(files) > 1
+                     else line.strip(), file=outfile)
 
 # --------------------------------------------------
 if __name__ == '__main__':
